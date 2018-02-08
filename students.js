@@ -1,7 +1,11 @@
-import {getAvg} from "./averageService";
+import * as averageService from "./averageService";
 
 const scores = [90, 75, 60, 99, 94, 30];
-const averageScore = getAvg(scores);
-const messageToDisplay = `average score ${averageScore}`;
+const averageScore = averageService.getAvg(scores);
+const totalScore = averageService.getTotalScore(scores);
 
-document.write(messageToDisplay);
+const messageToDisplayAvg = `average score ${averageScore}`;
+const messageToDisplayTotal = `total score ${totalScore}`;
+
+document.write(messageToDisplayAvg);
+document.write(messageToDisplayTotal);

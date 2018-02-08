@@ -79,11 +79,19 @@ module.exports = __webpack_require__(1);
 
 var _averageService = __webpack_require__(2);
 
-var scores = [90, 75, 60, 99, 94, 30];
-var averageScore = (0, _averageService.getAvg)(scores);
-var messageToDisplay = "average score " + averageScore;
+var averageService = _interopRequireWildcard(_averageService);
 
-document.write(messageToDisplay);
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var scores = [90, 75, 60, 99, 94, 30];
+var averageScore = averageService.getAvg(scores);
+var totalScore = averageService.getTotalScore(scores);
+
+var messageToDisplayAvg = "average score " + averageScore;
+var messageToDisplayTotal = "total score " + totalScore;
+
+document.write(messageToDisplayAvg);
+document.write(messageToDisplayTotal);
 
 /***/ }),
 /* 2 */
@@ -96,6 +104,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.getAvg = getAvg;
+exports.getTotalScore = getTotalScore;
 function getAvg(scores) {
     return getTotalScore(scores) / scores.length;
 }
