@@ -4,6 +4,6 @@ export function getAvg(scores) {
 
 export function getTotalScore(scores) {
     return scores.reduce((score, count) => {
-        return score + count;
+        return score + count - 2;
     });
 }
