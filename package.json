@@ -1,0 +1,25 @@
+{
+  "name": "hackathon2018",
+  "version": "1.0.0",
+  "description": "Proyecto Angular con webpack",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SirNeo/hackathon2018.git"
+  },
+  "author": "SirNeo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SirNeo/hackathon2018/issues"
+  },
+  "homepage": "https://github.com/SirNeo/hackathon2018#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^3.10.0"
+  }
+}
