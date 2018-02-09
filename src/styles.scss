@@ -13,9 +13,12 @@ img {
 h2 {
     margin: 0;
     margin-left: 170px;
+    padding-top: 11px;
+    font-weight: bold;
 }
 
 #imgContainer {
     padding-left: 10px;
     background-image: url('./content/banner.jpg');
+    height: 93px;
 }

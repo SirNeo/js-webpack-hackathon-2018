@@ -8,8 +8,11 @@ var srcPath  = path.join(__dirname, '/src'),
 
 module.exports = {
     context: srcPath,
+    resolve: {
+        extensions: ['.js', '.ts'],
+    },
     entry: {
-        app: './students.js',
+        app: './students.ts',
         appStyles: [
             './styles.scss',
         ],
@@ -29,9 +32,9 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.ts$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: 'awesome-typescript-loader',
             },
             {
                 test: /\.scss$/,
@@ -83,7 +86,7 @@ module.exports = {
             },
         ],
     },
-    // For development
+    // For development: Permite ver ficheros .js/.ts en la consola del navegador (.tsconfig.json -> "sourceMap": true)
     devtool: 'inline-source-map',
     devServer: {
         port: 8080,
