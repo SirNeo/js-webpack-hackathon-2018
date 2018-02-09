@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Clone Repository') {
             steps {
-                echo 'Building..'
+                echo 'Cloning Repository...'
+                checkout scm
             }
         }
         stage('Test') {
