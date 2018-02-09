@@ -7,6 +7,7 @@ pipeline {
     // step ([$class: 'WsCleanup'])
     //checkout scm
   //}
+  stages {
 
   stage ('Install') {
     echo 'Install dependencies..'
@@ -77,4 +78,5 @@ pipeline {
     }
   }
   */
+  }
 }
