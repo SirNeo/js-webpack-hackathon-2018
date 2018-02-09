@@ -14,10 +14,12 @@ module.exports = {
             './styles.scss',
         ],
         vendor: [
-            'jquery'
+            'jquery',
+            'materialize-css',
         ],
         vendorStyles: [
             '../node_modules/bootstrap/dist/css/bootstrap.css',
+            '../node_modules/materialize-css/dist/css/materialize.css',
         ],
     },
     output: {
@@ -69,6 +71,15 @@ module.exports = {
             {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
+            },
+            {
+                test: /\.(png|jpg)$/,
+                exclude: /node_modules/,
+                loader: 'url-loader?limit=5000',
+            },
+            {
+                test: /\.html$/,
+                loader: 'html-loader',
             },
         ],
     },
