@@ -1,25 +1,27 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    webpack = require('webpack'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var basePath = __dirname;
+var srcPath  = path.join(__dirname, '/src'),
+    distPath = path.join(__dirname, '/dist');
 
 module.exports = {
+    context: srcPath,
     entry: {
         app: './students.js',
         appStyles: [
-            './styles.css',
+            './styles.scss',
         ],
         vendor: [
             'jquery'
         ],
         vendorStyles: [
-            './node_modules/bootstrap/dist/css/bootstrap.css',
+            '../node_modules/bootstrap/dist/css/bootstrap.css',
         ],
     },
     output: {
-        path: path.join(basePath, 'dist'),
+        path: distPath,
         filename: '[chunkhash].[name].js',
     },
     module: {
@@ -30,7 +32,19 @@ module.exports = {
                 loader: 'babel-loader',
             },
             {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        { loader: 'css-loader', },
+                        { loader: 'sass-loader', },
+                    ],
+                }),
+            },
+            {
                 test: /\.css$/,
+                include: /node_modules/,
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: {
