@@ -12,13 +12,21 @@ module.exports = {
         extensions: ['.js', '.ts'],
     },
     entry: {
-        app: './students.ts',
+        app: './index.ts',
         appStyles: [
             './styles.scss',
         ],
         vendor: [
-            'jquery',
             'materialize-css',
+            'core-js',
+            'reflect-metadata',
+            'zone.js',
+            '@angular/common',
+            '@angular/compiler',
+            '@angular/core',
+            '@angular/platform-browser',
+            '@angular/platform-browser-dynamic',
+            'rxjs',
         ],
         vendorStyles: [
             '../node_modules/bootstrap/dist/css/bootstrap.css',
@@ -98,10 +106,10 @@ module.exports = {
             template: 'index.html', // Name of template in ./src
             hash: true,
         }),
-        new webpack.ProvidePlugin({
+        /*new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
-        }),
+        }),*/
         new webpack.optimize.CommonsChunkPlugin({
             name: ['vendor', 'manifest'],
         }),
@@ -111,5 +119,9 @@ module.exports = {
             disable: false,
             allChunks: true,
         }),
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+            srcPath
+        ),
     ],
 };
