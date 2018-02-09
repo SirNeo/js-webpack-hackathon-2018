@@ -1,7 +1,7 @@
 {
   "name": "hackathon2018",
   "version": "1.0.0",
-  "description": "Proyecto Angular con webpack",
+  "description": "Proyecto javascript con webpack 3",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/SirNeo/hackathon2018.git"
   },
-  "author": "SirNeo",
+  "author": "José María Palma",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SirNeo/hackathon2018/issues"
