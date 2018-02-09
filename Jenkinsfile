@@ -1,12 +1,12 @@
-node ('nodejs') {
-  currentBuild.result = 'SUCCESS'
+pipeline {
+  agent any
 
-  stage ('Checkout') {
-    echo 'Checkout repository...'
+  //stage ('Checkout') {
+    // echo 'Checkout repository...'
     // Clean workspace before checkout
-    step ([$class: 'WsCleanup'])
-    checkout scm
-  }
+    // step ([$class: 'WsCleanup'])
+    //checkout scm
+  //}
 
   stage ('Install') {
     echo 'Install dependencies..'
