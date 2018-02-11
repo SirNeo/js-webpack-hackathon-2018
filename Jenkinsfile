@@ -1,3 +1,41 @@
+
+node('testing') {
+    stage('Initialize') {
+        echo 'Initializing...'
+        def node = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+        //env.PATH = "${node}/bin:${env.PATH}"
+        env.PATH = "${node}:${env.PATH}"
+    }
+
+    stage('Checkout') {
+        echo 'Getting source code...'
+        checkout scm
+    }
+
+    stage('Build') {
+        echo 'Building dependencies...'
+        sh 'npm i'
+    }
+
+    stage('Test') {
+        echo 'Testing...'
+        sh 'npm test'
+    }
+
+    stage('Publish') {
+        echo 'Publishing Test Coverage...'
+		publishHTML (target: [
+			allowMissing: false,
+			alwaysLinkToLastBuild: false,
+			keepAll: true,
+			reportDir: 'coverage/lcov-report',
+			reportFiles: 'index.html',
+			reportName: "Application Test Coverage"
+		])
+    }
+}
+
+/*
 pipeline {
     agent any
     tools {nodejs "nodejs"}
@@ -5,7 +43,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                echo "Running ${env.JOB_NAME} #${env.BUILD_ID}"
                 sh 'npm install'
             }
         }
@@ -21,6 +59,10 @@ pipeline {
         }
     }
 }
+*/
+
+
+
 
 /* pipeline {
   agent any
