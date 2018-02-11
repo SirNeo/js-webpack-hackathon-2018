@@ -1,5 +1,5 @@
 
-node('testing') {
+node('nodejs') {
     stage('Initialize') {
         echo 'Initializing...'
         def node = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
@@ -35,6 +35,7 @@ node('testing') {
     }
 }
 
+
 /*
 pipeline {
     agent any
@@ -49,7 +50,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                echo 'Testing...'
+                sh 'npm run lint'
             }
         }
         stage('Deploy') {
