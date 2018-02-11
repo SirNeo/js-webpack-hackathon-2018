@@ -1,10 +1,11 @@
 pipeline {
     agent any
-
+    tools {nodejs "9.3.0"}
     stages {
         stage('Build') {
             steps {
                 echo 'Building...'
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
                 sh 'npm install'
             }
         }
