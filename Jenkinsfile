@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools {nodejs "nodejs"}
+    tools {nodejs "nodejs.8.9.4"}
     stages {
         stage('Build') {
             steps {
