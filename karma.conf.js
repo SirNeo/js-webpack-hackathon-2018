@@ -22,8 +22,8 @@ module.exports = function(config) {
     
     // list of files / patterns to load in the browser
     files: [
-      //{pattern: 'test/**/*spec.js', included: true},
-      'test/test_index.js'// only specify one entry pointand require all tests in there 
+      {pattern: 'test/**/*spec.js', included: true},
+      //'test/test_index.js'// only specify one entry pointand require all tests in there 
     ],
 
     // list of files / patterns to exclude
@@ -32,10 +32,10 @@ module.exports = function(config) {
     
     // preprocess matching files before serving them to the browser available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      //'test/**/*spec.js':  ['webpack','sourcemap']
+      'test/**/*spec.js':  ['webpack','sourcemap'],
 
       // add webpack as preprocessor
-      'test/test_index.js': ['webpack','sourcemap'],
+      //'test/test_index.js': ['webpack','sourcemap'],
       'src/**/*.js': ['coverage']
     },
     // webpack configuration
@@ -92,7 +92,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS','Chrome'],
+    browsers: ['PhantomJS', 'Chrome'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
@@ -108,15 +108,13 @@ module.exports = function(config) {
       require('karma-mocha'),
       require('karma-spec-reporter'),
       require('karma-chrome-launcher'),
-      //require('../../dist/karma-webpack')
       require('./node_modules/karma-webpack/lib/karma-webpack'),
       require('karma-phantomjs-launcher'),
       require('karma-sourcemap-loader'),
       require('karma-coverage'),
-      require('karma-chai'),
-      require('sinon'),
-      require('sinon-chai')
-      
+      require('karma-chai'), // pendiente revisar
+      require('sinon'), // pendiente revisar
+      require('sinon-chai') // pendiente revisar
     ],
 
     coverageReporter: {
@@ -124,8 +122,8 @@ module.exports = function(config) {
       reporters: [
         { type: 'lcov', subdir: '.' },
         { type: 'text-summary' },
-        {type: 'text'},
-        {type: 'html'}
+        // { type: 'text' }, // Tabla de texto con el resumen, parecido al text-summary
+        { type: 'html' }
       ]
     }
   })
