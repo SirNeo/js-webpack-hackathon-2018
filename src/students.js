@@ -3,7 +3,7 @@ import banner from './content/banner.jpg';
 
 $('body').css('background-color', 'white');
 
-const scores = [90, 75, 60, 99, 94, 10];
+scores = [90, 75, 60, 99, 94, 10];
 
 const averageScore = getAvg(scores);
 

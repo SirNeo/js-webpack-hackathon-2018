@@ -7,7 +7,9 @@
     "start": "webpack-dev-server --config=config/dev.webpack.config.js",
     "build": "rimraf dist && webpack --config=config/dev.webpack.config.js",
     "build:prod": "rimraf dist && webpack -p --config=config/prod.webpack.config.js",
-    "lint": "eslint src",
+    "lint": "npm run lint:html && npm run lint:xml",
+    "lint:html": "eslint src -o ./eslint-report-manual.html -f html",
+    "lint:xml": "eslint src -o ./eslint-report-manual.xml",
     "test": "karma start",
     "test:phantom": "karma start --single-run --browsers PhantomJS",
     "test:watch": "karma start --auto-watch"

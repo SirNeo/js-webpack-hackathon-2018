@@ -23,65 +23,32 @@ module.exports = {
     },
     module: {
         rules: [
-            {
-               test: /\.js$/,
-               exclude: /node_modules/,
-               enforce: 'pre',
-               loader: 'eslint-loader',
+            { test: /\.js$/, 
+              include: path.resolve(__dirname, '../src'),
+              exclude: /node_modules/, 
+              enforce: 'pre' /*old preloader*/, 
+              loader: 'eslint-loader',
+              options: {
+                /*configFile: path.resolve("reglas_personalizadas.js"),*/
+                outputReport: {
+                  //filePath: 'eslint-report.xml',
+                  //formatter: require('eslint/lib/formatters/checkstyle')
+                  filePath: '../eslint-report.html',
+                  formatter: require('eslint/lib/formatters/html')
+                }
+              } 
             },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-            },
-            {
-                test: /\.scss$/,
-                exclude: /node_modules/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        { loader: 'css-loader', },
-                        { loader: 'sass-loader', },
-                    ],
-                }),
-            },
-            {
-                test: /\.css$/,
-                include: /node_modules/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: {
-                        loader: 'css-loader',
-                    },
-                }),
-            },
-            // Loading glyphicons
-            // Using here url-loader and file-loader
-            {
-                test: /\.(woff|woff2)(\?v=\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&mimetype=application/font-woff',
-            },
-            {
-                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&mimetype=application/octet-stream',
-            },
-            {
-                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader',
-            },
-            {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
-            },
-            {
-                test: /\.(png|jpg)$/,
-                exclude: /node_modules/,
-                loader: 'url-loader?limit=5000',
-            },
-            {
-                test: /\.html$/,
-                loader: 'html-loader',
-            },
+            // loaders normales
+            { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+            { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: [{ loader: 'css-loader', }, { loader: 'sass-loader', } ] }) },
+            { test: /\.css$/, include: /node_modules/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: { loader: 'css-loader' } })},
+            // Loading glyphicons Using here url-loader and file-loader
+            { test: /\.(woff|woff2)(\?v=\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
+            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
+            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader' },
+            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
+            { test: /\.(png|jpg)$/, exclude: /node_modules/, loader: 'url-loader?limit=5000' },
+            { test: /\.html$/, loader: 'html-loader' }
         ],
     },
     plugins: [
