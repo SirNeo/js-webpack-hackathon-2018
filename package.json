@@ -8,11 +8,9 @@
     "build": "rimraf dist && webpack --config=config/dev.webpack.config.js",
     "build:prod": "rimraf dist && webpack -p --config=config/prod.webpack.config.js",
     "lint": "eslint src",
-    "test1": "node ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
-    "test2": "karma start karma.conf.js --single-run",
-    "test4": "karma start",
-    "test3": "NODE_ENV=testing karma start --single-run",
-    "test3:watch": "NODE_ENV=testing karma start"
+    "test": "karma start",
+    "test:phantom": "karma start --single-run --browsers PhantomJS",
+    "test:watch": "karma start --auto-watch"
   },
   "repository": {
     "type": "git",

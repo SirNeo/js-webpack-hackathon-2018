@@ -1,5 +1,6 @@
 // Karma configuration
-var webpack = require('webpack')
+var webpack = require('webpack'),
+    path = require('path');
 
 var configSettings = { // eslint-disable-line no-unused-vars
   normal: {},
@@ -15,29 +16,27 @@ module.exports = function(config) {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+
+    // frameworks to use available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha'/*,'sinon-chai'*//*,'phantomjs-shim'*/],
+    
     // list of files / patterns to load in the browser
     files: [
       //{pattern: 'test/**/*spec.js', included: true},
-      //{pattern: 'test/*spec.js', included: true}
-      
-      // only specify one entry point
-      // and require all tests in there
-      'test/test_index.js'
+      'test/test_index.js'// only specify one entry pointand require all tests in there 
     ],
+
     // list of files / patterns to exclude
     exclude: [
     ],
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    
+    // preprocess matching files before serving them to the browser available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      //'test/*spec.js':  ['webpack'/*,'sourcemap'*/],
-      //'test/**/*spec.js':  ['webpack'/*,'sourcemap'*/]
+      //'test/**/*spec.js':  ['webpack','sourcemap']
 
       // add webpack as preprocessor
-      'test/test_index.js': ['webpack','sourcemap']
+      'test/test_index.js': ['webpack','sourcemap'],
+      'src/**/*.js': ['coverage']
     },
     // webpack configuration
     // webpack: require("./config/dev.webpack.config.js"),
@@ -49,20 +48,26 @@ module.exports = function(config) {
       // webpack configuration
       devtool: 'inline-source-map',
 
-      // resolve: {
-      //   extensions: ['', '.js']
-      // },
-      // module: {}
       module: {
         loaders: [
-            { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=env' }
+            { 
+              test: /\.js$/, 
+              exclude: /node_modules/, 
+              loader: 'babel-loader?presets[]=env' 
+            }
         ]
+        /* PENDIENTE DE PRUEBA
+        ,postLoaders: [ {
+          test: /\.js$/,
+          exclude: /(test|node_modules|bower_components)\//,
+            loader: 'istanbul-instrumenter'
+        } ]*/
     },
     },
 
     webpackMiddleware: {
       stats: "errors-only"
-      //noInfo: true
+      //noInfo: true  //please don't spam the console when running in karma!
       // stats: {
       //   colors: true
       // }
@@ -118,7 +123,9 @@ module.exports = function(config) {
       dir: './coverage',
       reporters: [
         { type: 'lcov', subdir: '.' },
-        { type: 'text-summary' }
+        { type: 'text-summary' },
+        {type: 'text'},
+        {type: 'html'}
       ]
     }
   })
