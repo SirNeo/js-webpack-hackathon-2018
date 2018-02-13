@@ -25,15 +25,18 @@ pipeline {
                 sh 'npm run build'
             }
         }
+        stage('Test') {
+            steps {
+                echo 'Building....'
+                sh 'npm run test:phantom'
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                sh 'npm run start'
+                echo 'Success!'
             }
-        }
-        stage('End') {
-          steps {
-            echo 'Success!'
-          }
         }
     }
 }
