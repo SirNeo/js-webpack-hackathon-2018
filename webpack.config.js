@@ -1,12 +1,10 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-var basePath = __dirname;
+var path = require('path'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    webpack = require('webpack'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  context: path.join(basePath, 'src'),
+  context: path.join(__dirname, 'src'),
   resolve: {
     extensions: ['.js', '.ts']
   },
@@ -33,7 +31,7 @@ module.exports = {
     ],
   },
   output: {
-    path: path.join(basePath, 'dist'),
+    path: path.join(__dirname, 'dist'),
     filename: '[chunkhash].[name].js',
   },
   module: {
