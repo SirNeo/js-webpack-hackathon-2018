@@ -31,10 +31,10 @@ module.exports = {
               options: {
                 /*configFile: path.resolve("reglas_personalizadas.js"),*/
                 outputReport: {
-                  //filePath: 'eslint-report.xml',
-                  //formatter: require('eslint/lib/formatters/checkstyle')
-                  filePath: '../eslint-report.html',
-                  formatter: require('eslint/lib/formatters/html')
+                  filePath: 'eslint-report.xml',
+                  formatter: require('eslint/lib/formatters/checkstyle')
+                  //filePath: '../eslint-report.html',
+                  //formatter: require('eslint/lib/formatters/html')
                 }
               } 
             },
