@@ -7,3 +7,9 @@ export function getTotalScore(scores) {
         return score + count;
     });
 }
+
+export function getSum(scores) {
+    return scores.reduce((score, count) => {
+        return score + count;
+    });
+}

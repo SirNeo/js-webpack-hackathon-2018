@@ -13,55 +13,35 @@ var configSettings = { // eslint-disable-line no-unused-vars
 
 module.exports = function(config) {
   config.set({
-
-    // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
-
-    // frameworks to use available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha'/*,'sinon-chai'*//*,'phantomjs-shim'*/],
-    
-    // list of files / patterns to load in the browser
-    files: [
-      {pattern: 'test/**/*spec.js', included: true},
-      //'test/test_index.js'// only specify one entry pointand require all tests in there 
-    ],
-
-    // list of files / patterns to exclude
-    exclude: [
-    ],
-    
+    files: [ 'test/index.js' ], // only specify one entry pointand require all tests in there 
+    exclude: [], // list of files / patterns to exclude
     // preprocess matching files before serving them to the browser available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/**/*spec.js':  ['webpack','sourcemap'],
-
-      // add webpack as preprocessor
-      //'test/test_index.js': ['webpack','sourcemap'],
-      'src/**/*.js': ['coverage']
+      'test/index.js': ['webpack','sourcemap','coverage'],
     },
-    // webpack configuration
-    // webpack: require("./config/dev.webpack.config.js"),
     webpack: {
-      // karma watches the test entry points
-      // (you don't need to specify the entry option)
-      // webpack watches dependencies
-
-      // webpack configuration
       devtool: 'inline-source-map',
-
       module: {
-        loaders: [
+        rules: [
             { 
               test: /\.js$/, 
               exclude: /node_modules/, 
               loader: 'babel-loader?presets[]=env' 
+            },
+            // instrument only testing sources with Istanbul 
+            {
+              test: /\.js$/,
+              use: { 
+                loader: 'istanbul-instrumenter-loader',
+                //options: { esModules: true }
+              },
+              enforce: 'post',
+              include: path.resolve('src/'),
+              exclude: /node_modules|\.spec\.js$/
             }
         ]
-        /* PENDIENTE DE PRUEBA
-        ,postLoaders: [ {
-          test: /\.js$/,
-          exclude: /(test|node_modules|bower_components)\//,
-            loader: 'istanbul-instrumenter'
-        } ]*/
     },
     },
 
@@ -72,10 +52,7 @@ module.exports = function(config) {
       //   colors: true
       // }
     },
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress','spec','coverage'],
+    reporters: ['progress','coverage-istanbul'],
 
     // web server port
     port: 9876,
@@ -105,6 +82,7 @@ module.exports = function(config) {
     // List plugins explicitly, since autoloading karma-webpack
     // won't work here
     plugins: [
+      // anything named karma-* is normally auto included so you probably dont need this
       require('karma-mocha'),
       require('karma-spec-reporter'),
       require('karma-chrome-launcher'),
@@ -114,17 +92,40 @@ module.exports = function(config) {
       require('karma-coverage'),
       require('karma-chai'), // pendiente revisar
       require('sinon'), // pendiente revisar
-      require('sinon-chai') // pendiente revisar
+      require('sinon-chai'), // pendiente revisar
+      require('karma-coverage-istanbul-reporter'),
     ],
 
-    coverageReporter: {
-      dir: './coverage',
-      reporters: [
-        { type: 'lcov', subdir: '.' },
-        { type: 'text-summary' },
-        // { type: 'text' }, // Tabla de texto con el resumen, parecido al text-summary
-        { type: 'html' }
-      ]
+    coverageIstanbulReporter: {
+      reports: [ 'html', 'lcovonly', 'text-summary' ],
+      // base output directory. If you include %browser% in the path it will be replaced with the karma browser name
+      dir: path.join(__dirname, 'coverage'),
+      // Combines coverage information from multiple browsers into one report rather than outputting a report
+      // for each browser.
+      combineBrowserReports: true,
+      // if using webpack and pre-loaders, work around webpack breaking the source path
+      fixWebpackSourcePaths: true,
+      // stop istanbul outputting messages like `File [${filename}] ignored, nothing could be mapped`
+      skipFilesWithNoCoverage: true,
+
+       // enforce percentage thresholds
+       // anything under these percentages will cause karma to fail with an exit code of 1 if not running in watch mode
+       thresholds: {
+        emitWarning: false, // set to `true` to not fail the test command when thresholds are not met
+        global: { // thresholds for all files
+          statements: 50,
+          lines: 50,
+          branches: 50,
+          functions: 50
+        },
+        each: { // thresholds per file
+          statements: 10,
+          lines: 10,
+          branches: 10,
+          functions: 10,
+        }
+      }
     }
+
   })
 }
