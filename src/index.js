@@ -2,7 +2,7 @@ import {getAvg, getTotalScore} from "./averageService";
 
 $('body').css('background-color', 'white');
 
-scores = [90, 75, 60, 99, 94, 10];
+const scores = [90, 75, 60, 99, 94, 10];
 
 const averageScore = getAvg(scores);
 
