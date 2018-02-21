@@ -8,7 +8,7 @@ var distPath = path.join(__dirname, '../dist');
 module.exports = webpackMerge.strategy({
   entry: 'prepend',
 })(commonConfig, {
-  // For development https://webpack.js.org/configuration/devtool/#for-development
+  // Debug ES6 code
   devtool: 'inline-source-map',
   output: {
     path: distPath,

@@ -1,5 +1,4 @@
 import {getAvg, getTotalScore} from "./averageService";
-//import banner from './content/banner.jpg';
 
 $('body').css('background-color', 'white');
 
@@ -14,8 +13,3 @@ const messageToDisplayTotal = `Total score ${totalScore}`;
 
 document.write(messageToDisplayAvg);
 document.write(messageToDisplayTotal);
-
-const img = document.createElement('img');
-img.src = './content/banner.jpg';
-
-// document.getElementById('imgContainer').appendChild(img);

@@ -13,11 +13,13 @@ module.exports = webpackMerge(commonConfig, {
       filename: '[chunkhash].[name].js',
     },
     plugins: [
+      // Generate bundle with css extension.
       new ExtractTextPlugin({
         filename: '[chunkhash].[name].css',
         disable: false,
         allChunks: true,
       }),
+      // Compression files (no-recommended)
       new CompressionPlugin({
         asset: '[path].gz[query]',
         algorithm: 'gzip',

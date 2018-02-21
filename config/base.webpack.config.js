@@ -8,7 +8,7 @@ var srcPath  = path.join(__dirname, '../src');
 module.exports = {
     context: srcPath,
     entry: {
-        app: './students.js',
+        app: './index.js',
         appStyles: [
             './styles.scss',
         ],
@@ -23,6 +23,7 @@ module.exports = {
     },
     module: {
         rules: [
+            // Execute ESLint while we are writing our code. webpack-dev-server uses it to continuously check for errors.
             { test: /\.js$/, 
               include: path.resolve(__dirname, '../src'),
               exclude: /node_modules/, 
@@ -42,17 +43,21 @@ module.exports = {
                 emitError: false,
                 emitWarning: false
               } 
-            },
-            // loaders normales
+            },            
+            // Transpilate ES6 code
             { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+            // Transpilate SCSS to CSS
             { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: [{ loader: 'css-loader', }, { loader: 'sass-loader', } ] }) },
+            // Load custom CSS to index.html
             { test: /\.css$/, include: /node_modules/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: { loader: 'css-loader' } })},
-            // Loading glyphicons Using here url-loader and file-loader
+            // Load the fonts and images from Bootstrap
             { test: /\.(woff|woff2)(\?v=\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
             { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
             { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader' },
             { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
+            // Load our png/jpg in /dist
             { test: /\.(png|jpg)$/, exclude: /node_modules/, loader: 'url-loader?limit=5000' },
+            // Load html in /dist
             { test: /\.html$/, loader: 'html-loader' }
         ],
     },
@@ -63,14 +68,18 @@ module.exports = {
             template: 'index.html', // Name of template in ./src
             hash: true,
         }),
+        // Allow use jQuery
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
         }),
+        // Place third party libraries in separate js
         new webpack.optimize.CommonsChunkPlugin({
             name: ['vendor', 'manifest'],
         }),
+        // Order the bundle imported.
         new webpack.HashedModuleIdsPlugin(),
+        // Generate bundle with css extension.
         new ExtractTextPlugin({
             filename: '[chunkhash].[name].css',
             disable: false,
